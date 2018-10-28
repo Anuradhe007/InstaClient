@@ -17,7 +17,7 @@ API.LastJson
 following = []
 next_max_id = True
 while next_max_id:
-    print next_max_id
+    print (next_max_id)
     # first iteration hack
     if next_max_id is True:
         next_max_id = ''
