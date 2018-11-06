@@ -1,4 +1,5 @@
 from InstagramAPI import InstagramAPI
+from FileGenerator import FileGenerator
 import datetime
 import time
 
@@ -11,12 +12,24 @@ class UserPostDetails:
         if postCreatedTime<givenTime:
             return userPost
 
-    def instaDetailExtractor(self, post, apiObject):
+    def instaDetailExtractor(self, post, apiObject, userName, postCount):
         isLikers = apiObject.getMediaLikers(post['id'])
-        if isLikers:
-            likers = apiObject.LastJson.get('users')
-            for liker in likers:
-                print(str(datetime.datetime.fromtimestamp(post['taken_at']))+liker['username'])
+        fileGenerator = FileGenerator()
+        postCaption = post['caption']
+
+        try:
+            captionText = postCaption['text']
+        except TypeError:
+            captionText = ''
+
+
+        likers = apiObject.LastJson.get('users')
+        details = [('Post_id', 'User name', 'Post created date time', 'Caption', 'Timestamp', 'Total likes', 'Likers'),
+                   (post['id'], userName, datetime.datetime.fromtimestamp(post['taken_at']), captionText, '', len(likers), '')]
+        for liker in likers:
+            details.append(('', '', '', '', '', '', liker['username']))
+            print(str(datetime.datetime.fromtimestamp(post['taken_at']))+liker['username'])
+        fileGenerator.createExcelFile(userName, post['id'],  details, 2, postCount)
             #print(post['likers'])
         # for liker in post['likers']:
         #     if not liker:
@@ -40,23 +53,18 @@ class UserPostDetails:
 
 
                 max_id = obj.LastJson.get('next_max_id', '')
-                #print(obj.LastJson)
+                postCount = 0
                 for post in obj.LastJson['items']:
-                    #p = self.postFilterByTime(post, 10)
-                    self.instaDetailExtractor(post, obj)
-                            #self.postDetailExtractor(p)
-                            #if not p:
-                            #   break
+                    self.instaDetailExtractor(post, obj, userName, postCount)
+                    postCount += 1
 
-                myposts.extend(obj.LastJson['items'])  # merge lists
+                #myposts.extend(obj.LastJson['items'])  # merge lists
                 time.sleep(2)  # Slows the script down to avoid flooding the servers
 
             #print(len(myposts))
 #created_at_utc
             myposts_sorted = sorted(myposts, key=lambda k:
             k['like_count'],reverse=True)
-            #print(userName)
-            #print(myposts_sorted)
             time.sleep(2)
 
 InstagramAPI2 = InstagramAPI('geomet.killer', 'Geo123456')
