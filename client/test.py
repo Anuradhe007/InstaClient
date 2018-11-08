@@ -1,40 +1,52 @@
-import datetime
-import sched, time
+from tkinter import *
+fields = ('Username 1', 'Password 1', 'Username 2', 'Password 2', 'Username 3', 'Password 3', 'Username 4', 'Password 4', 'Username 5', 'Password 5', 'Time')
 
-from openpyxl import Workbook
-wb = Workbook()
+def fetch(entries):
+   for entry in entries:
+      field = entry[0]
+      text  = entry[1].get()
+      print('%s: "%s"' % (field, text))
 
-# grab the active worksheet
-ws = wb.active
+def makeform(root, fields):
+   entries = []
+   for field in fields:
+      row = Frame(root)
+      lab = Label(row, width=15, text=field, anchor='w')
+      ent = Entry(row)
+      row.pack(side=TOP, fill=X, padx=5, pady=5)
+      lab.pack(side=LEFT)
+      ent.pack(side=RIGHT, expand=YES, fill=X)
+      entries.append((field, ent))
+   return entries
 
-# Data can be assigned directly to cells
-ws['A1'] = 42
+if __name__ == '__main__':
+     window = Tk()
+     window.configure(background="#a1dbcd")
+     window.title("InstaClient")
+     photo = PhotoImage(file="instagram-logo.gif")
 
-# Rows can also be appended
-ws.append([1, 2, 3])
+     w = Label(window, image=photo)
+     w.pack()
 
-# Python types will automatically be converted
-import datetime
-ws['A2'] = datetime.datetime.now()
+     lblInst = Label(window, text="Please fill the instagram user details:", fg="#383a39", bg="#a1dbcd",
+                             font=("Helvetica", 16))
+     lblInst.pack()
 
-# Save the file
-wb.save("sample.xlsx")
+     ents = makeform(window, fields)
+     window.bind('<Return>', (lambda event, e=ents: fetch(e)))
 
-# s = sched.scheduler(time.time, time.sleep)
-# def print_time(a='default'):
-#      print("From print_time", time.time(), a)
-#
-# def print_some_times():
-#      print(time.time())
-#      s.enter(10, 1, print_time)
-#      s.enter(5, 2, print_time, argument=('positional',))
-#      s.enter(5, 1, print_time, kwargs={'a': 'keyword'})
-#      s.run()
-#      print(time.time())
-#
-# print_some_times()
+     lblInst1 = Label(window, text="Please insert the time:", fg="#383a39", bg="#a1dbcd",
+                     font=("Helvetica", 14))
+     lblInst1.pack()
 
-#readable = datetime.datetime.fromtimestamp(1540638110).isoformat()
-readable = datetime.datetime.fromtimestamp(1540638110)
-current = datetime.datetime.now() - datetime.timedelta(minutes=15)
-#print(readable<current)
+     lblTime = Label(window, width=15, text="Time", anchor='w')
+     timeInput = Entry(window)
+     lblTime.pack(side=LEFT)
+     timeInput.pack(side=RIGHT, expand=YES, fill=X)
+
+     b1 = Button(window, text='Start',
+               command=(lambda e=ents: fetch(e)))
+     b1.pack(side=LEFT, padx=5, pady=5)
+     b2 = Button(window, text='Quit', command=window.quit)
+     b2.pack(side=LEFT, padx=5, pady=5)
+window.mainloop()
