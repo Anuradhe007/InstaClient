@@ -67,11 +67,11 @@ class UserPostDetails:
             k['like_count'],reverse=True)
             time.sleep(2)
 
-#InstagramAPI2 = InstagramAPI('geomet.killer', 'Geo123456')
-#InstagramAPI2.login()
-#time.sleep(2)
-#credentials = {'geomet.killer':InstagramAPI2}
-#upd = UserPostDetails()
-#upd.userPostDetails(credentials)
+InstagramAPI2 = InstagramAPI('geomet.killer', 'Geo123456')
+InstagramAPI2.login()
+time.sleep(2)
+credentials = {'geomet.killer':InstagramAPI2}
+upd = UserPostDetails()
+upd.userPostDetails(credentials)
 
         #resp_dict['value']['queryInfo']['creationTime']  # 1349724919000

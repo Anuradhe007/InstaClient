@@ -28,24 +28,24 @@ def fetch(entries):
 def makeform(root, fields):
    entries = []
    for field in fields:
-      row = Frame(root)
-      lab = Label(row, width=15, text=field, anchor='w')
-      ent = Entry(row)
-      row.pack(side=TOP, fill=X, padx=5, pady=5)
-      lab.pack(side=LEFT)
-      ent.pack(side=RIGHT, expand=YES, fill=X)
+      row = tkinter.Frame(root)
+      lab = tkinter.Label(row, width=15, text=field, anchor='w')
+      ent = tkinter.Entry(row)
+      row.pack(side=tkinter.TOP, fill=tkinter.X, padx=5, pady=5)
+      lab.pack(side=tkinter.LEFT)
+      ent.pack(side=tkinter.RIGHT, expand=tkinter.YES, fill=tkinter.X)
       entries.append((field, ent))
    return entries
 
 if __name__ == '__main__':
-   root = Tk()
+   root = tkinter.Tk()
    ents = makeform(root, fields)
    root.bind('<Return>', (lambda event, e=ents: fetch(e)))
-   b1 = Button(root, text='Show',
+   b1 = tkinter.Button(root, text='Show',
           command=(lambda e=ents: fetch(e)))
-   b1.pack(side=LEFT, padx=5, pady=5)
-   b2 = Button(root, text='Quit', command=root.quit)
-   b2.pack(side=LEFT, padx=5, pady=5)
+   b1.pack(side=tkinter.LEFT, padx=5, pady=5)
+   b2 = tkinter.Button(root, text='Quit', command=root.quit)
+   b2.pack(side=tkinter.LEFT, padx=5, pady=5)
    root.mainloop()
 
 # lblUserName1 = tkinter.Label(window, text="Username 1:", fg="#383a39", bg="#a1dbcd")

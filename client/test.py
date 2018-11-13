@@ -9,14 +9,21 @@ def fetch(entries):
 
 def makeform(root, fields):
    entries = []
+   count = 0
    for field in fields:
       row = Frame(root)
-      lab = Label(row, width=15, text=field, anchor='w')
-      ent = Entry(row)
-      row.pack(side=TOP, fill=X, padx=5, pady=5)
-      lab.pack(side=LEFT)
-      ent.pack(side=RIGHT, expand=YES, fill=X)
-      entries.append((field, ent))
+      if count == 1:
+          userNameLab = Label(row, text="Username", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 16))
+          passwordLab = Label(row, text="Password", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 16))
+          userNameLab.pack(side=LEFT)
+          passwordLab.pack(side=RIGHT)
+      userNameEnt = Entry(row, width=40)
+      passwordEnt = Entry(row, width=40)
+      row.pack(side=TOP, padx=5, pady=5)
+      userNameEnt.pack(side=RIGHT, fill=X)
+      passwordEnt.pack(side=LEFT, fill=X)
+      entries.append((field, userNameEnt))
+      count = count + 1
    return entries
 
 if __name__ == '__main__':
@@ -24,12 +31,10 @@ if __name__ == '__main__':
      window.configure(background="#a1dbcd")
      window.title("InstaClient")
      photo = PhotoImage(file="instagram-logo.gif")
+     logo = Label(window, image=photo)
+     logo.pack(side=TOP)
 
-     w = Label(window, image=photo)
-     w.pack()
-
-     lblInst = Label(window, text="Please fill the instagram user details:", fg="#383a39", bg="#a1dbcd",
-                             font=("Helvetica", 16))
+     lblInst = Label(window, text="Instagram users:", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 16))
      lblInst.pack()
 
      ents = makeform(window, fields)
@@ -42,7 +47,7 @@ if __name__ == '__main__':
      lblTime = Label(window, width=15, text="Time", anchor='w')
      timeInput = Entry(window)
      lblTime.pack(side=LEFT)
-     timeInput.pack(side=RIGHT, expand=YES, fill=X)
+     timeInput.pack(side=RIGHT, fill=X)
 
      b1 = Button(window, text='Start',
                command=(lambda e=ents: fetch(e)))
