@@ -1,53 +1,68 @@
-import tkinter
-from InstagramAPI import InstagramAPI
-import time
-from UserPostDetails import UserPostDetails
+from tkinter import *
 
-window = tkinter.Tk()
-window.configure(background="#a1dbcd")
-#window.geometry('600x600')
-window.title("InstaClient")
-#window.wm_iconbitmap('resources/icon.png')
-photo = tkinter.PhotoImage(file="instagram-logo.gif")
+def handleStartBtn():
+    for entry in ents:
+        field = entry[0]
+        text = entry[1].get()
+        print('%s: "%s"' % (field, text))
 
-w = tkinter.Label(window, image=photo)
-w.pack()
-
-lblInst = tkinter.Label(window, text="Please fill the instagram user details:", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 16))
-lblInst.pack()
-
-fields = ('Username 1', 'Password 1', 'Username 2', 'Password 2', 'Username 3', 'Password 3', 'Username 4', 'Password 4', 'Username 5', 'Password 5', 'Username 6', 'Password 6',
-          'Username 7', 'Password 7', 'Username 8', 'Password 8', 'Username 9', 'Password 9', 'Username 10', 'Password 10')
-
-def fetch(entries):
-   for entry in entries:
-      field = entry[0]
-      text  = entry[1].get()
-      print('%s: "%s"' % (field, text))
-
-def makeform(root, fields):
+def makeform(root):
    entries = []
-   for field in fields:
-      row = tkinter.Frame(root)
-      lab = tkinter.Label(row, width=15, text=field, anchor='w')
-      ent = tkinter.Entry(row)
-      row.pack(side=tkinter.TOP, fill=tkinter.X, padx=5, pady=5)
-      lab.pack(side=tkinter.LEFT)
-      ent.pack(side=tkinter.RIGHT, expand=tkinter.YES, fill=tkinter.X)
-      entries.append((field, ent))
+   count = 0
+   for field in range(1, 15):
+      row = Frame(root)
+      row.pack(side=TOP, padx=5, pady=2)
+      if count < 10:
+          userNameLab = Label(row, text="Username", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
+          passwordLab = Label(row, text="Password", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
+          userNameLab.pack(side=LEFT)
+
+          passworsEnt = Entry(row, width=40)
+          entries.append(('password'+str(field), passworsEnt))
+          userNameEnt = Entry(row, width=40)
+          entries.append(('username'+str(field), userNameEnt))
+          passworsEnt.pack(side=RIGHT, fill=X)
+          passwordLab.pack(side=RIGHT)
+          userNameEnt.pack(side=LEFT, fill=X)
+
+      if count == 10:
+        timeLab = Label(row, text="Time", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
+        timeLab.pack(side=LEFT)
+        timeEnt = Entry(row, width=60)
+        timeEnt.pack(side=RIGHT, fill=X)
+        entries.append(('time' + str(field), timeEnt))
+
+      if count == 11:
+        proxyLab = Label(row, text="Proxy", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
+        proxyLab.pack(side=LEFT)
+        proxyEnt = Entry(row, width=60)
+        proxyEnt.pack(side=RIGHT, fill=X)
+        entries.append(('proxy' + str(field), proxyEnt))
+
+      if count == 12:
+        filesLab = Label(row, text="Files", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
+        filesLab.pack(side=LEFT)
+        filesEnt = Entry(row, width=60)
+        filesEnt.pack(side=RIGHT, fill=X)
+        entries.append(('files' + str(field), filesEnt))
+
+      if count == 13:
+          b1 = Button(window, text='Start', command=handleStartBtn)
+          b1.pack(side=RIGHT, padx=5, pady=2)
+          b2 = Button(window, text='Stop', command=window.quit)
+          b2.pack(side=RIGHT, padx=5, pady=2)
+
+      count = count + 1
    return entries
 
-if __name__ == '__main__':
-   root = tkinter.Tk()
-   ents = makeform(root, fields)
-   root.bind('<Return>', (lambda event, e=ents: fetch(e)))
-   b1 = tkinter.Button(root, text='Show',
-          command=(lambda e=ents: fetch(e)))
-   b1.pack(side=tkinter.LEFT, padx=5, pady=5)
-   b2 = tkinter.Button(root, text='Quit', command=root.quit)
-   b2.pack(side=tkinter.LEFT, padx=5, pady=5)
-   root.mainloop()
+window = Tk()
+window.configure(background="#a1dbcd")
+window.title("InstaClient")
+photo = PhotoImage(file="insta-client-logo.gif")
+logo = Label(window, image=photo)
+logo.pack(side=TOP)
 
+ents = makeform(window)
 # lblUserName1 = tkinter.Label(window, text="Username 1:", fg="#383a39", bg="#a1dbcd")
 # entUserName1 = tkinter.Entry(window)
 # lblUserName1.pack(side="left")
