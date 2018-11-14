@@ -2,6 +2,7 @@ from tkinter import *
 from InstagramAPI import InstagramAPI
 import time
 from ClientScheduler import ClientScheduler
+import sys
 
 def handleStartBtn():
     pwd1 = ents[0][1].get().strip()
@@ -32,7 +33,6 @@ def handleStartBtn():
     credentials = dict()
 
     if uname1 and pwd1:
-        print("1st things")
         InstagramAPI1 = InstagramAPI(uname1, pwd1)
         login = InstagramAPI1.login()
         time.sleep(2)
@@ -104,6 +104,9 @@ def handleStartBtn():
     clientScheduler = ClientScheduler(time1, proxy, file, credentials)
     clientScheduler.schedulerInitialize()
 
+def handleStopBtn():
+    sys.exit()
+
 def makeform(root):
    entries = []
    count = 0
@@ -147,7 +150,7 @@ def makeform(root):
       if count == 13:
           b1 = Button(window, text='Start', command=handleStartBtn)
           b1.pack(side=RIGHT, padx=5, pady=2)
-          b2 = Button(window, text='Stop', command=window.quit)
+          b2 = Button(window, text='Stop', command=handleStopBtn)
           b2.pack(side=RIGHT, padx=5, pady=2)
 
       count = count + 1

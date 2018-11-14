@@ -5,11 +5,9 @@ import time
 
 class UserPostDetails:
 
-    def postFilterByTime(self, userPost, timeToCheck):
-        #post_dict = json.loads(userPost)
+    def postFilterByTime(self, userPost, clientStartedTime, clientEndingTime):
         postCreatedTime = datetime.datetime.fromtimestamp(userPost['taken_at'])
-        givenTime = datetime.datetime.now() - datetime.timedelta(minutes=timeToCheck)
-        if postCreatedTime<givenTime:
+        if (postCreatedTime > clientStartedTime) and (postCreatedTime < clientEndingTime):
             return userPost
 
     def instaDetailExtractor(self, post, apiObject, userName, postCount):
@@ -22,25 +20,15 @@ class UserPostDetails:
         except TypeError:
             captionText = ''
 
-
         likers = apiObject.LastJson.get('users')
-        details = [('Post_id', 'User name', 'Post created date time', 'Caption', 'Timestamp', 'Total likes', 'Likers'),
+        details = [('Post_id', 'User name', 'Post created date time', 'Caption', 'Total likes', 'Likers'),
                    (post['id'], userName, datetime.datetime.fromtimestamp(post['taken_at']), captionText, '', len(likers), '')]
         for liker in likers:
-            details.append(('', '', '', '', '', '', liker['username']))
+            details.append(('', '', '', '', '', liker['username']))
             print(str(datetime.datetime.fromtimestamp(post['taken_at']))+liker['username'])
-        fileGenerator.createExcelFile(userName, post['id'], datetime.datetime.fromtimestamp(post['taken_at']), details, 2, postCount)
-            #print(post['likers'])
-        # for liker in post['likers']:
-        #     if not liker:
-        #         print(liker['username'])
+        fileGenerator.createExcelFile(userName, post['id'], datetime.datetime.fromtimestamp(post['taken_at']), details, 2, postCount, '/home/anuradha/insta/')
 
     def userPostDetails(self, credentials):
-        # InstagramAPI2 = InstagramAPI('geomet.killer', 'Geo123456')
-        # InstagramAPI2.login()
-        # time.sleep(2)
-        # credentials = {'anu_radha_007':InstagramAPI1, 'geomet.killer':InstagramAPI2}
-
         for userName, obj in credentials.items():
             myposts = []
             has_more_posts = True
@@ -57,21 +45,7 @@ class UserPostDetails:
                 for post in obj.LastJson['items']:
                     self.instaDetailExtractor(post, obj, userName, postCount)
                     postCount += 1
-
-                #myposts.extend(obj.LastJson['items'])  # merge lists
                 time.sleep(2)  # Slows the script down to avoid flooding the servers
-
-            #print(len(myposts))
-#created_at_utc
             myposts_sorted = sorted(myposts, key=lambda k:
             k['like_count'],reverse=True)
             time.sleep(2)
-
-InstagramAPI2 = InstagramAPI('geomet.killer', 'Geo123456')
-InstagramAPI2.login()
-time.sleep(2)
-credentials = {'geomet.killer':InstagramAPI2}
-upd = UserPostDetails()
-upd.userPostDetails(credentials)
-
-        #resp_dict['value']['queryInfo']['creationTime']  # 1349724919000

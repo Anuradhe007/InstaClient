@@ -1,19 +1,22 @@
 import schedule
 import time
+import datetime
+from UserDetails import UserDetails
+from UserPostDetails import UserPostDetails
 
 class ClientScheduler:
 
     def __init__(self, time1, proxyPath, filesPath, credentials):
         self.time1 = time1
-        self.proxyPath = proxyPath
-        self.filesPath = filesPath
+        self.proxyPath = str(proxyPath.get().strip())
+        self.filesPath = str(filesPath.get().strip())
         self.credentials = credentials
+        self.clientStartedTime = datetime.datetime.now()
+        self.clientEndingTime = datetime.datetime.now() + datetime.timedelta(hours=24)
 
     def job(self):
-        print(self.time1.get().strip())
-        print(self.proxyPath.get().strip())
-        print(self.filesPath.get().strip())
-        print(self.credentials)
+        upd = UserPostDetails()
+        upd.userPostDetails(self.credentials)
 
     def jobScheduler(self, timeToRun, job):
         schedule.every(timeToRun).seconds.do(job)
@@ -21,11 +24,21 @@ class ClientScheduler:
         # schedule.every().hour.do(job)
         # schedule.every().day.at("10:30").do(job)
 
+        count = 0
         while 1:
             schedule.run_pending()
             time.sleep(1)
+            if self.clientEndingTime <= datetime.datetime.now():
+                self.generateFollowers()
+                break
+            count = count + 1
 
     def schedulerInitialize(self):
         self.jobScheduler(int(self.time1.get().strip()), self.job)
 
-#pip install schedule
+    def job_that_executes_once(self):
+        return schedule.CancelJob
+
+    def generateFollowers(self):
+        ud = UserDetails()
+        ud.getTotalFollowers(self.credentials, self.filesPath)
