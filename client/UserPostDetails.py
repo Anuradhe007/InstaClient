@@ -21,12 +21,11 @@ class UserPostDetails:
             captionText = ''
 
         likers = apiObject.LastJson.get('users')
-        details = [('Post_id', 'User name', 'Post created date time', 'Caption', 'Total likes', 'Likers'),
-                   (post['id'], userName, datetime.datetime.fromtimestamp(post['taken_at']), captionText, '', len(likers), '')]
+        details = [('User name', 'Post created date time', 'Caption', 'Total likes', 'Likers'),
+                   (userName, datetime.datetime.fromtimestamp(post['taken_at']), captionText, len(likers), '')]
         for liker in likers:
-            details.append(('', '', '', '', '', liker['username']))
-            print(str(datetime.datetime.fromtimestamp(post['taken_at']))+liker['username'])
-        fileGenerator.createExcelFile(userName, post['id'], datetime.datetime.fromtimestamp(post['taken_at']), details, 2, postCount, '/home/anuradha/insta/')
+            details.append(('', '', '', '', liker['username']))
+        fileGenerator.createExcelFile(userName, datetime.datetime.fromtimestamp(post['taken_at']), details, '/home/anuradha/insta/', postCount)
 
     def userPostDetails(self, credentials):
         for userName, obj in credentials.items():
@@ -37,15 +36,13 @@ class UserPostDetails:
                 obj.getSelfUserFeed(maxid=max_id)
                 if obj.LastJson['more_available'] is not True:
                     has_more_posts = False  # stop condition
-                    print("stopped")
-
 
                 max_id = obj.LastJson.get('next_max_id', '')
-                postCount = 0
+                postCount = 1
                 for post in obj.LastJson['items']:
                     self.instaDetailExtractor(post, obj, userName, postCount)
                     postCount += 1
                 time.sleep(2)  # Slows the script down to avoid flooding the servers
-            myposts_sorted = sorted(myposts, key=lambda k:
+            sorted(myposts, key=lambda k:
             k['like_count'],reverse=True)
             time.sleep(2)

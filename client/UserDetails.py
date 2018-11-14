@@ -14,7 +14,7 @@ class UserDetails:
             todayDate = datetime.datetime.now()
             fileName = key+'-'+'Followers for last 24 hrs-'+todayDate.strftime('%b %d,%Y')+'.xlsx'
             workbook = Workbook()
-            worksheet = workbook.create_sheet()
+            worksheet = workbook.active
             while next_max_id:
                 # first iteration hack
                 if next_max_id is True:
