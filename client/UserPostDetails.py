@@ -29,7 +29,7 @@ class UserPostDetails:
         for liker in likers:
             details.append(('', '', '', '', '', '', liker['username']))
             print(str(datetime.datetime.fromtimestamp(post['taken_at']))+liker['username'])
-        fileGenerator.createExcelFile(userName, post['id'],  details, 2, postCount)
+        fileGenerator.createExcelFile(userName, post['id'], datetime.datetime.fromtimestamp(post['taken_at']), details, 2, postCount)
             #print(post['likers'])
         # for liker in post['likers']:
         #     if not liker:

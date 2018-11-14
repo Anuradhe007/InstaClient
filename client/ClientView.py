@@ -1,10 +1,108 @@
 from tkinter import *
+from InstagramAPI import InstagramAPI
+import time
+from ClientScheduler import ClientScheduler
 
 def handleStartBtn():
-    for entry in ents:
-        field = entry[0]
-        text = entry[1].get()
-        print('%s: "%s"' % (field, text))
+    pwd1 = ents[0][1].get().strip()
+    uname1 = ents[1][1].get().strip()
+    pwd2 = ents[2][1].get().strip()
+    uname2 = ents[3][1].get().strip()
+    pwd3 = ents[4][1].get().strip()
+    uname3 = ents[5][1].get().strip()
+    pwd4 = ents[6][1].get().strip()
+    uname4 = ents[7][1].get().strip()
+    pwd5 = ents[8][1].get().strip()
+    uname5 = ents[9][1].get().strip()
+    pwd6 = ents[10][1].get().strip()
+    uname6 = ents[11][1].get().strip()
+    pwd7 = ents[12][1].get().strip()
+    uname7 = ents[13][1].get().strip()
+    pwd8 = ents[14][1].get().strip()
+    uname8 = ents[15][1].get().strip()
+    uname9 = ents[16][1].get().strip()
+    pwd9 = ents[17][1].get().strip()
+    pwd10 = ents[18][1].get().strip()
+    uname10 = ents[19][1].get().strip()
+
+    time1 = ents[20][1]
+    proxy = ents[21][1]
+    file = ents[22][1]
+
+    credentials = dict()
+
+    if uname1 and pwd1:
+        print("1st things")
+        InstagramAPI1 = InstagramAPI(uname1, pwd1)
+        login = InstagramAPI1.login()
+        time.sleep(2)
+        if login:
+            credentials[uname1] = InstagramAPI1
+
+    if not uname2 and pwd2:
+        InstagramAPI2 = InstagramAPI(uname2, pwd2)
+        login = InstagramAPI2.login()
+        time.sleep(2)
+        if login:
+            credentials[uname2] = InstagramAPI2
+
+    if not uname3 and pwd3:
+        InstagramAPI3 = InstagramAPI(uname3, pwd3)
+        login = InstagramAPI3.login()
+        time.sleep(2)
+        if login:
+            credentials[uname3] = InstagramAPI3
+
+    if not uname4 and pwd4:
+        InstagramAPI4 = InstagramAPI(uname4, pwd4)
+        login = InstagramAPI4.login()
+        time.sleep(2)
+        if login:
+            credentials[uname4] = InstagramAPI4
+
+    if not uname5 and pwd5:
+        InstagramAPI5 = InstagramAPI(uname5, pwd5)
+        login = InstagramAPI5.login()
+        time.sleep(2)
+        if login:
+            credentials[uname5] = InstagramAPI5
+
+    if not uname6 and pwd6:
+        InstagramAPI6 = InstagramAPI(uname6, pwd6)
+        login = InstagramAPI6.login()
+        time.sleep(2)
+        if login:
+            credentials[uname6] = InstagramAPI6
+
+    if not uname7 and pwd7:
+        InstagramAPI7 = InstagramAPI(uname7, pwd7)
+        login = InstagramAPI7.login()
+        time.sleep(2)
+        if login:
+            credentials[uname7] = InstagramAPI7
+
+    if not uname8 and pwd8:
+        InstagramAPI8 = InstagramAPI(uname8, pwd8)
+        login = InstagramAPI8.login()
+        time.sleep(2)
+        if login:
+            credentials[uname8] = InstagramAPI8
+
+    if not uname9 and pwd9:
+        InstagramAPI9 = InstagramAPI(uname9, pwd9)
+        login = InstagramAPI9.login()
+        time.sleep(2)
+        if login:
+            credentials[uname9] = InstagramAPI9
+
+    if not uname10 and pwd10:
+        InstagramAPI10 = InstagramAPI(uname10, pwd10)
+        login = InstagramAPI10.login()
+        time.sleep(2)
+        if login:
+            credentials[uname10] = InstagramAPI10
+    clientScheduler = ClientScheduler(time1, proxy, file, credentials)
+    clientScheduler.schedulerInitialize()
 
 def makeform(root):
    entries = []
@@ -141,102 +239,102 @@ ents = makeform(window)
 # passWord10 = Entry(window, width=30)
 # passWord10.grid(column=150, row=210)
 #
-# def startBtnClick():
-#     uname1 = userName1.get().strip()
-#     pwd1 = passWord1.get().strip()
-#     uname2 = userName2.get().strip()
-#     pwd2 = passWord2.get().strip()
-#     uname3 = userName3.get().strip()
-#     pwd3 = passWord3.get().strip()
-#     uname4 = userName4.get().strip()
-#     pwd4 = passWord4.get().strip()
-#     uname5 = userName5.get().strip()
-#     pwd5 = passWord5.get().strip()
-#     uname6 = userName6.get().strip()
-#     pwd6 = passWord6.get().strip()
-#     uname7 = userName7.get().strip()
-#     pwd7 = passWord7.get().strip()
-#     uname8 = userName8.get().strip()
-#     pwd8 = passWord8.get().strip()
-#     uname9 = userName9.get().strip()
-#     pwd9 = passWord9.get().strip()
-#     uname10 = userName10.get().strip()
-#     pwd10 = passWord10.get().strip()
-#
-#     credentials = dict()
-#
-#     if uname1 and pwd1:
-#         print("1st things")
-#         InstagramAPI1 = InstagramAPI(uname1,pwd1)
-#         login = InstagramAPI1.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname1] = InstagramAPI1
-#
-#     if not uname2 and pwd2:
-#         InstagramAPI2 = InstagramAPI(uname2, pwd2)
-#         login = InstagramAPI2.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname2] = InstagramAPI2
-#
-#     if not uname3 and pwd3:
-#         InstagramAPI3 = InstagramAPI(uname3, pwd3)
-#         login = InstagramAPI3.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname3] = InstagramAPI3
-#
-#     if not uname4 and pwd4:
-#         InstagramAPI4 = InstagramAPI(uname4, pwd4)
-#         login = InstagramAPI4.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname4] = InstagramAPI4
-#
-#     if not uname5 and pwd5:
-#         InstagramAPI5 = InstagramAPI(uname5, pwd5)
-#         login = InstagramAPI5.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname5] = InstagramAPI5
-#
-#     if not uname6 and pwd6:
-#         InstagramAPI6 = InstagramAPI(uname6, pwd6)
-#         login = InstagramAPI6.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname6] = InstagramAPI6
-#
-#     if not uname7 and pwd7:
-#         InstagramAPI7 = InstagramAPI(uname7, pwd7)
-#         login = InstagramAPI7.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname7] = InstagramAPI7
-#
-#     if not uname8 and pwd8:
-#         InstagramAPI8 = InstagramAPI(uname8, pwd8)
-#         login = InstagramAPI8.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname8] = InstagramAPI8
-#
-#     if not uname9 and pwd9:
-#         InstagramAPI9 = InstagramAPI(uname9, pwd9)
-#         login = InstagramAPI9.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname9] = InstagramAPI9
-#
-#     if not uname10 and pwd10:
-#         InstagramAPI10 = InstagramAPI(uname10, pwd10)
-#         login = InstagramAPI10.login()
-#         time.sleep(2)
-#         if login:
-#             credentials[uname10] = InstagramAPI10
-#
-#     UserPostDetails.userPostDetails(credentials)
+def startBtnClick():
+    uname1 = userName1.get().strip()
+    pwd1 = passWord1.get().strip()
+    uname2 = userName2.get().strip()
+    pwd2 = passWord2.get().strip()
+    uname3 = userName3.get().strip()
+    pwd3 = passWord3.get().strip()
+    uname4 = userName4.get().strip()
+    pwd4 = passWord4.get().strip()
+    uname5 = userName5.get().strip()
+    pwd5 = passWord5.get().strip()
+    uname6 = userName6.get().strip()
+    pwd6 = passWord6.get().strip()
+    uname7 = userName7.get().strip()
+    pwd7 = passWord7.get().strip()
+    uname8 = userName8.get().strip()
+    pwd8 = passWord8.get().strip()
+    uname9 = userName9.get().strip()
+    pwd9 = passWord9.get().strip()
+    uname10 = userName10.get().strip()
+    pwd10 = passWord10.get().strip()
+
+    credentials = dict()
+
+    if uname1 and pwd1:
+        print("1st things")
+        InstagramAPI1 = InstagramAPI(uname1,pwd1)
+        login = InstagramAPI1.login()
+        time.sleep(2)
+        if login:
+            credentials[uname1] = InstagramAPI1
+
+    if not uname2 and pwd2:
+        InstagramAPI2 = InstagramAPI(uname2, pwd2)
+        login = InstagramAPI2.login()
+        time.sleep(2)
+        if login:
+            credentials[uname2] = InstagramAPI2
+
+    if not uname3 and pwd3:
+        InstagramAPI3 = InstagramAPI(uname3, pwd3)
+        login = InstagramAPI3.login()
+        time.sleep(2)
+        if login:
+            credentials[uname3] = InstagramAPI3
+
+    if not uname4 and pwd4:
+        InstagramAPI4 = InstagramAPI(uname4, pwd4)
+        login = InstagramAPI4.login()
+        time.sleep(2)
+        if login:
+            credentials[uname4] = InstagramAPI4
+
+    if not uname5 and pwd5:
+        InstagramAPI5 = InstagramAPI(uname5, pwd5)
+        login = InstagramAPI5.login()
+        time.sleep(2)
+        if login:
+            credentials[uname5] = InstagramAPI5
+
+    if not uname6 and pwd6:
+        InstagramAPI6 = InstagramAPI(uname6, pwd6)
+        login = InstagramAPI6.login()
+        time.sleep(2)
+        if login:
+            credentials[uname6] = InstagramAPI6
+
+    if not uname7 and pwd7:
+        InstagramAPI7 = InstagramAPI(uname7, pwd7)
+        login = InstagramAPI7.login()
+        time.sleep(2)
+        if login:
+            credentials[uname7] = InstagramAPI7
+
+    if not uname8 and pwd8:
+        InstagramAPI8 = InstagramAPI(uname8, pwd8)
+        login = InstagramAPI8.login()
+        time.sleep(2)
+        if login:
+            credentials[uname8] = InstagramAPI8
+
+    if not uname9 and pwd9:
+        InstagramAPI9 = InstagramAPI(uname9, pwd9)
+        login = InstagramAPI9.login()
+        time.sleep(2)
+        if login:
+            credentials[uname9] = InstagramAPI9
+
+    if not uname10 and pwd10:
+        InstagramAPI10 = InstagramAPI(uname10, pwd10)
+        login = InstagramAPI10.login()
+        time.sleep(2)
+        if login:
+            credentials[uname10] = InstagramAPI10
+
+    #UserPostDetails.userPostDetails(credentials)
 #
 # startBtn = Button(window, text="Start", command=startBtnClick)
 # startBtn.grid(column=10, row=230)
