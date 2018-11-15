@@ -1,4 +1,3 @@
-from InstagramAPI import InstagramAPI
 from FileGenerator import FileGenerator
 import datetime
 import time

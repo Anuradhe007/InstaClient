@@ -11,8 +11,8 @@ class ClientScheduler:
         self.proxyPath = str(proxyPath.get().strip())
         self.filesPath = str(filesPath.get().strip())
         self.credentials = credentials
-        self.clientStartedTime = datetime.datetime.now()
-        self.clientEndingTime = datetime.datetime.now() + datetime.timedelta(hours=1)
+        self.clientStartedTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
+        self.clientEndingTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24)
 
     def job(self):
         upd = UserPostDetails()
