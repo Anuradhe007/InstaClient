@@ -9,6 +9,7 @@ class UserPostDetails:
         postCreatedTime = datetime.datetime.fromtimestamp(userPost['taken_at'])
         if (postCreatedTime > clientStartedTime) and (postCreatedTime < clientEndingTime):
             return userPost
+        return False
 
     def instaDetailExtractor(self, post, apiObject, userName, postCount):
         isLikers = apiObject.getMediaLikers(post['id'])
@@ -27,7 +28,7 @@ class UserPostDetails:
             details.append(('', '', '', '', liker['username']))
         fileGenerator.createExcelFile(userName, datetime.datetime.fromtimestamp(post['taken_at']), details, '/home/anuradha/insta/', postCount)
 
-    def userPostDetails(self, credentials):
+    def userPostDetails(self, credentials, clientStartedTime, clientEndingTime):
         for userName, obj in credentials.items():
             myposts = []
             has_more_posts = True
@@ -40,7 +41,9 @@ class UserPostDetails:
                 max_id = obj.LastJson.get('next_max_id', '')
                 postCount = 1
                 for post in obj.LastJson['items']:
-                    self.instaDetailExtractor(post, obj, userName, postCount)
+                    selectedPost = self.postFilterByTime(post, clientStartedTime, clientEndingTime)
+                    if selectedPost != False:
+                        self.instaDetailExtractor(selectedPost, obj, userName, postCount)
                     postCount += 1
                 time.sleep(2)  # Slows the script down to avoid flooding the servers
             sorted(myposts, key=lambda k:

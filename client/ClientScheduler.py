@@ -12,15 +12,17 @@ class ClientScheduler:
         self.filesPath = str(filesPath.get().strip())
         self.credentials = credentials
         self.clientStartedTime = datetime.datetime.now()
-        self.clientEndingTime = datetime.datetime.now() + datetime.timedelta(hours=24)
+        self.clientEndingTime = datetime.datetime.now() + datetime.timedelta(hours=1)
 
     def job(self):
         upd = UserPostDetails()
-        upd.userPostDetails(self.credentials)
+        upd.userPostDetails(self.credentials, self.clientStartedTime, self.clientEndingTime)
+        print('Executed the job!')
 
     def jobScheduler(self, timeToRun, job):
-        schedule.every(timeToRun).seconds.do(job)
-        # schedule.every(10).minutes.do(job)
+        print('Scheduler started!')
+        #schedule.every(timeToRun).seconds.do(job)
+        schedule.every(timeToRun).minutes.do(job)
         # schedule.every().hour.do(job)
         # schedule.every().day.at("10:30").do(job)
 

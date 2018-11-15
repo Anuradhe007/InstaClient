@@ -34,6 +34,8 @@ def handleStartBtn():
 
     if uname1 and pwd1:
         InstagramAPI1 = InstagramAPI(uname1, pwd1)
+        if proxy.get().strip():
+            InstagramAPI1.setProxy(proxy.get().strip())
         login = InstagramAPI1.login()
         time.sleep(2)
         if login:
@@ -41,6 +43,8 @@ def handleStartBtn():
 
     if uname2 and pwd2:
         InstagramAPI2 = InstagramAPI(uname2, pwd2)
+        if proxy.get().strip():
+            InstagramAPI2.setProxy(proxy.get().strip())
         login = InstagramAPI2.login()
         time.sleep(2)
         if login:
@@ -48,6 +52,8 @@ def handleStartBtn():
 
     if uname3 and pwd3:
         InstagramAPI3 = InstagramAPI(uname3, pwd3)
+        if proxy.get().strip():
+            InstagramAPI3.setProxy(proxy.get().strip())
         login = InstagramAPI3.login()
         time.sleep(2)
         if login:
@@ -55,6 +61,8 @@ def handleStartBtn():
 
     if uname4 and pwd4:
         InstagramAPI4 = InstagramAPI(uname4, pwd4)
+        if proxy.get().strip():
+            InstagramAPI4.setProxy(proxy.get().strip())
         login = InstagramAPI4.login()
         time.sleep(2)
         if login:
@@ -62,6 +70,8 @@ def handleStartBtn():
 
     if uname5 and pwd5:
         InstagramAPI5 = InstagramAPI(uname5, pwd5)
+        if proxy.get().strip():
+            InstagramAPI5.setProxy(proxy.get().strip())
         login = InstagramAPI5.login()
         time.sleep(2)
         if login:
@@ -69,6 +79,8 @@ def handleStartBtn():
 
     if uname6 and pwd6:
         InstagramAPI6 = InstagramAPI(uname6, pwd6)
+        if proxy.get().strip():
+            InstagramAPI6.setProxy(proxy.get().strip())
         login = InstagramAPI6.login()
         time.sleep(2)
         if login:
@@ -76,6 +88,8 @@ def handleStartBtn():
 
     if uname7 and pwd7:
         InstagramAPI7 = InstagramAPI(uname7, pwd7)
+        if proxy.get().strip():
+            InstagramAPI7.setProxy(proxy.get().strip())
         login = InstagramAPI7.login()
         time.sleep(2)
         if login:
@@ -83,6 +97,8 @@ def handleStartBtn():
 
     if uname8 and pwd8:
         InstagramAPI8 = InstagramAPI(uname8, pwd8)
+        if proxy.get().strip():
+            InstagramAPI8.setProxy(proxy.get().strip())
         login = InstagramAPI8.login()
         time.sleep(2)
         if login:
@@ -90,6 +106,8 @@ def handleStartBtn():
 
     if uname9 and pwd9:
         InstagramAPI9 = InstagramAPI(uname9, pwd9)
+        if proxy.get().strip():
+            InstagramAPI9.setProxy(proxy.get().strip())
         login = InstagramAPI9.login()
         time.sleep(2)
         if login:
@@ -97,6 +115,8 @@ def handleStartBtn():
 
     if uname10 and pwd10:
         InstagramAPI10 = InstagramAPI(uname10, pwd10)
+        if proxy.get().strip():
+            InstagramAPI10.setProxy(proxy.get().strip())
         login = InstagramAPI10.login()
         time.sleep(2)
         if login:
@@ -122,7 +142,7 @@ def makeform(root):
           passwordLab = Label(row, text="Password", fg="#383a39", bg="#a1dbcd", font=("Helvetica", 12))
           userNameLab.pack(side=LEFT)
 
-          passworsEnt = Entry(row, width=40)
+          passworsEnt = Entry(row, width=40, show="*")
           entries.append(('password'+str(field), passworsEnt))
           userNameEnt = Entry(row, width=40)
           entries.append(('username'+str(field), userNameEnt))

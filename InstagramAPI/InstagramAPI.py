@@ -86,6 +86,7 @@ class InstagramAPI:
             print('Set proxy!')
             proxies = {'http': proxy, 'https': proxy}
             self.s.proxies.update(proxies)
+            #self.proxy = {"https": proxystring}
 
     def login(self, force=False):
         if (not self.isLoggedIn or force):
