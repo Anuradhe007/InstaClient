@@ -1,18 +1,15 @@
-from InstagramAPI import InstagramAPI
-import time
 from openpyxl import Workbook
 import datetime
-from openpyxl import load_workbook
+
 
 class UserDetails:
-
     def getTotalFollowers(self, credentials, filePath):
         for key, value in credentials.items():
-            user_id =  value.username_id
+            user_id = value.username_id
             followers = []
             next_max_id = True
             todayDate = datetime.datetime.now()
-            fileName = key+'-'+'Followers for last 24 hrs-'+todayDate.strftime('%b %d,%Y')+'.xlsx'
+            fileName = key + '-' + 'Followers for last 24 hrs-' + todayDate.strftime('%b %d,%Y') + '.xlsx'
             workbook = Workbook()
             worksheet = workbook.active
             while next_max_id:

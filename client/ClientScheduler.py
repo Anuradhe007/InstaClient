@@ -1,22 +1,25 @@
 import schedule
 import time
 import datetime
+from tkinter import messagebox
 from UserDetails import UserDetails
 from UserPostDetails import UserPostDetails
 
-class ClientScheduler:
 
+class ClientScheduler:
     def __init__(self, time1, proxyPath, filesPath, credentials):
         self.time1 = time1
         self.proxyPath = str(proxyPath.get().strip())
         self.filesPath = str(filesPath.get().strip())
         self.credentials = credentials
-        self.clientStartedTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
-        self.clientEndingTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24)
+        self.clientStartedTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                                            "%Y-%m-%d %H:%M:%S")
+        self.clientEndingTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                                           "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24)
 
     def job(self):
         upd = UserPostDetails()
-        upd.userPostDetails(self.credentials, self.clientStartedTime, self.clientEndingTime)
+        upd.userPostDetails(self.credentials, self.clientStartedTime, self.clientEndingTime, self.filesPath)
         print('Executed the job!')
 
     def jobScheduler(self, timeToRun, job):
@@ -32,6 +35,7 @@ class ClientScheduler:
             time.sleep(1)
             if self.clientEndingTime <= datetime.datetime.now():
                 self.generateFollowers()
+                messagebox.showinfo("Info", "Finished Data Collecting")
                 break
             count = count + 1
 

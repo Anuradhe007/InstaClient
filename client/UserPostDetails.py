@@ -2,15 +2,15 @@ from FileGenerator import FileGenerator
 import datetime
 import time
 
-class UserPostDetails:
 
+class UserPostDetails:
     def postFilterByTime(self, userPost, clientStartedTime, clientEndingTime):
         postCreatedTime = datetime.datetime.fromtimestamp(userPost['taken_at'])
         if (postCreatedTime > clientStartedTime) and (postCreatedTime < clientEndingTime):
             return userPost
         return False
 
-    def instaDetailExtractor(self, post, apiObject, userName, postCount):
+    def instaDetailExtractor(self, post, apiObject, userName, filePath):
         isLikers = apiObject.getMediaLikers(post['id'])
         fileGenerator = FileGenerator()
         postCaption = post['caption']
@@ -25,9 +25,10 @@ class UserPostDetails:
                    (userName, datetime.datetime.fromtimestamp(post['taken_at']), captionText, len(likers), '')]
         for liker in likers:
             details.append(('', '', '', '', liker['username']))
-        fileGenerator.createExcelFile(userName, datetime.datetime.fromtimestamp(post['taken_at']), details, '/home/anuradha/insta/', postCount)
+        fileGenerator.createExcelFile(userName, datetime.datetime.fromtimestamp(post['taken_at']), details,
+                                      filePath)
 
-    def userPostDetails(self, credentials, clientStartedTime, clientEndingTime):
+    def userPostDetails(self, credentials, clientStartedTime, clientEndingTime, filePath):
         for userName, obj in credentials.items():
             myposts = []
             has_more_posts = True
@@ -38,13 +39,11 @@ class UserPostDetails:
                     has_more_posts = False  # stop condition
 
                 max_id = obj.LastJson.get('next_max_id', '')
-                postCount = 1
                 for post in obj.LastJson['items']:
                     selectedPost = self.postFilterByTime(post, clientStartedTime, clientEndingTime)
                     if selectedPost != False:
-                        self.instaDetailExtractor(selectedPost, obj, userName, postCount)
-                    postCount += 1
+                        self.instaDetailExtractor(selectedPost, obj, userName, filePath)
                 time.sleep(2)  # Slows the script down to avoid flooding the servers
             sorted(myposts, key=lambda k:
-            k['like_count'],reverse=True)
+            k['like_count'], reverse=True)
             time.sleep(2)
